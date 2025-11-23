@@ -1,3 +1,7 @@
+if(localStorage.getItem("isLoggedIn") !== "true"){
+    window.location.href = "login.html";
+}
+
 const currentUser = JSON.parse(localStorage.getItem('loggedInUser')) || {email:'user@test.com', firstName:'Tayyab', lastName:'Noor', profileImage:''};
 const posts = JSON.parse(localStorage.getItem('posts')) || [];
 

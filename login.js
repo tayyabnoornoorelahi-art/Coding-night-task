@@ -1,3 +1,8 @@
+  if(localStorage.getItem("isLoggedIn") !== "true"){
+    window.location.href = "login.html";
+}
+
+  
   document.getElementById('loginBtn').addEventListener('click', () => {
     const email = (document.getElementById('email').value || '').trim().toLowerCase();
     const password = document.getElementById('password').value;
