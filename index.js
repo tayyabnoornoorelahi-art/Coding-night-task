@@ -3,14 +3,13 @@ if (localStorage.getItem("isLoggedIn") !== "true") {
     window.location.href = "login.html";
 }
 
-
-
 window.addEventListener("DOMContentLoaded", () => {
     if (localStorage.getItem("isLoggedIn") !== "true") {
         window.location.href = "login.html";
     }
 });
 
+// Get current user info
 const currentUser = JSON.parse(localStorage.getItem("loggedInUser")) || {
     email: "user@test.com",
     firstName: "Tayyab",
@@ -19,7 +18,10 @@ const currentUser = JSON.parse(localStorage.getItem("loggedInUser")) || {
     description: ""
 };
 
-const posts = JSON.parse(localStorage.getItem("posts")) || [];
+// Load posts (shared among all users in this browser)
+const allPosts = JSON.parse(localStorage.getItem("posts")) || [];
+// Ensure current user can see all posts
+const posts = [...allPosts];
 
 const feedEl = document.getElementById("feed");
 const navAvatar = document.getElementById("navAvatar");
@@ -42,14 +44,17 @@ let editingId = null;
 let activeSort = localStorage.getItem("buzz_sort") || "latest";
 let activeTheme = localStorage.getItem("buzz_theme") || "dark";
 
+// Save posts to localStorage (shared for all users)
 function savePosts() {
     localStorage.setItem("posts", JSON.stringify(posts));
 }
 
+// Format timestamp
 function formatTime(t) {
     return new Date(t).toLocaleString();
 }
 
+// Apply theme
 function applyTheme() {
     if (activeTheme === "light") {
         document.body.classList.remove("dark-mode");
@@ -63,6 +68,7 @@ function applyTheme() {
     localStorage.setItem("buzz_theme", activeTheme);
 }
 
+// Load user profile UI
 function loadProfileUI() {
     const name = (currentUser.firstName || "User") + (currentUser.lastName ? " " + currentUser.lastName : "");
     composeName.innerText = "Welcome, " + (currentUser.firstName || "User");
@@ -88,6 +94,7 @@ function loadProfileUI() {
     }
 }
 
+// Filter and sort posts
 function getFilteredAndSortedPosts() {
     const q = (searchInput.value || "").trim().toLowerCase();
     let result = posts.slice();
@@ -104,6 +111,7 @@ function getFilteredAndSortedPosts() {
     return result;
 }
 
+// Render posts
 function renderPosts() {
     feedEl.innerHTML = "";
     const list = getFilteredAndSortedPosts();
@@ -155,6 +163,7 @@ function renderPosts() {
     });
 }
 
+// Like a post
 function toggleLike(postId) {
     const p = posts.find(x => x.id === postId);
     if (!p) return;
@@ -163,6 +172,7 @@ function toggleLike(postId) {
     renderPosts();
 }
 
+// Add a new post
 postBtn.onclick = () => {
     const text = (quickText.value || "").trim();
     const image = (quickImage.value || "").trim();
@@ -171,7 +181,7 @@ postBtn.onclick = () => {
         return;
     }
     const name = (currentUser.firstName || "") + (currentUser.lastName ? " " + currentUser.lastName : "");
-    posts.push({
+    const newPost = {
         id: Date.now(),
         userEmail: currentUser.email,
         userName: name || "User",
@@ -179,13 +189,15 @@ postBtn.onclick = () => {
         text,
         image,
         likes: 0
-    });
+    };
+    posts.push(newPost);
     savePosts();
     quickText.value = "";
     quickImage.value = "";
     renderPosts();
 };
 
+// Edit post
 function openEdit(id) {
     editingId = id;
     const post = posts.find(p => p.id === id);
@@ -211,16 +223,19 @@ document.getElementById("saveEdit").onclick = () => {
     document.getElementById("editModal").style.display = "none";
 };
 
+// Logout
 document.getElementById("logout").onclick = () => {
     localStorage.removeItem("loggedInUser");
     localStorage.removeItem("isLoggedIn");
     window.location.href = "login.html";
 };
 
+// Search posts
 searchInput.addEventListener("input", () => {
     renderPosts();
 });
 
+// Sorting
 function setActiveSort(s) {
     activeSort = s;
     localStorage.setItem("buzz_sort", activeSort);
@@ -242,11 +257,13 @@ chips.forEach(c => {
     c.onclick = () => setActiveSort(c.dataset.sort);
 });
 
+// Theme toggle
 themeToggle.onclick = () => {
     activeTheme = activeTheme === "light" ? "dark" : "light";
     applyTheme();
 };
 
+// Preview
 previewBtn.onclick = () => {
     const text = (quickText.value || "").trim();
     const image = (quickImage.value || "").trim();
@@ -280,6 +297,7 @@ previewBtn.onclick = () => {
     document.getElementById("closePreview").onclick = () => document.body.removeChild(overlay);
 };
 
+// Escape HTML
 function escapeHtml(str) {
     if (!str && str !== "") return "";
     return String(str)
@@ -290,6 +308,7 @@ function escapeHtml(str) {
         .replace(/>/g, "&gt;");
 }
 
+// Initial load
 applyTheme();
 loadProfileUI();
 setActiveSort(activeSort);
