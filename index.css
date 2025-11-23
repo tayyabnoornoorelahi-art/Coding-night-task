@@ -161,6 +161,18 @@ body.dark-mode a {
   color: #000000;
 }
 
+.avatar, .feed .post div[style*="border-radius:50%"] {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feed .post div[style*="background-image"] {
+    background-position: center;
+    background-size: cover;
+}
+
 .create input, #editImage, #quickImage {
   width: 100%;
   padding: 6px;

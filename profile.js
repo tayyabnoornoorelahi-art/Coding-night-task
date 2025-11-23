@@ -6,7 +6,13 @@ if (!loggedInUser) {
 }
 
 // ---------- LOCAL STORAGE INITIALIZATION ----------
-let profile = loggedInUser;
+let profile = {
+    firstName: loggedInUser.firstName || "User",
+    lastName: loggedInUser.lastName || "",
+    email: loggedInUser.email || "",
+    profileImage: loggedInUser.profileImage || "",
+    description: loggedInUser.description || ""
+};
 
 // ---------- ELEMENTS ----------
 const welcomeName = document.getElementById("welcomeName");
@@ -26,10 +32,10 @@ const goHome = document.getElementById("goHome");
 
 // ---------- FUNCTIONS ----------
 function updateProfileUI() {
-    welcomeName.innerText = "Welcome, " + profile.name;
+    welcomeName.innerText = `Welcome, ${profile.firstName} ${profile.lastName}`;
     welcomeEmail.innerText = profile.email;
-    userDesc.innerText = profile.desc;
-    profileImage.src = profile.img || "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png";
+    userDesc.innerText = profile.description || "This is your profile description...";
+    profileImage.src = profile.profileImage || "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png";
 }
 
 // Initial render
@@ -37,9 +43,9 @@ updateProfileUI();
 
 // ---------- OPEN MODAL ----------
 editBtn.addEventListener("click", () => {
-    editName.value = profile.name;
+    editName.value = `${profile.firstName} ${profile.lastName}`.trim();
     editEmail.value = profile.email;
-    editDesc.value = profile.desc;
+    editDesc.value = profile.description;
     popup.classList.add("show");
 });
 
@@ -49,17 +55,21 @@ closePopup.addEventListener("click", () => popup.classList.remove("show"));
 
 // ---------- SAVE PROFILE ----------
 saveBtn.addEventListener("click", () => {
-    profile.name = editName.value.trim() || profile.name;
-    profile.email = editEmail.value.trim() || profile.email;
-    profile.desc = editDesc.value.trim() || profile.desc;
+    // Split name into firstName and lastName
+    const nameParts = (editName.value || "").trim().split(" ");
+    profile.firstName = nameParts[0] || profile.firstName;
+    profile.lastName = nameParts.slice(1).join(" ") || profile.lastName;
 
-    // Update loggedInUser
+    profile.email = editEmail.value.trim() || profile.email;
+    profile.description = editDesc.value.trim() || profile.description;
+
+    // Save updated profile
     localStorage.setItem("loggedInUser", JSON.stringify(profile));
 
     // Update users array
     let users = JSON.parse(localStorage.getItem("users")) || [];
     let index = users.findIndex(u => u.email === profile.email);
-    if (index !== -1) {
+    if(index !== -1){
         users[index] = profile;
         localStorage.setItem("users", JSON.stringify(users));
     }
@@ -72,7 +82,7 @@ saveBtn.addEventListener("click", () => {
 uploadPhoto.addEventListener("change", () => {
     let file = uploadPhoto.files[0];
     if(file) {
-        profile.img = URL.createObjectURL(file);
+        profile.profileImage = URL.createObjectURL(file);
         localStorage.setItem("loggedInUser", JSON.stringify(profile));
         updateProfileUI();
     }
