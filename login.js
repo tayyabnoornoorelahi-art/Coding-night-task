@@ -4,6 +4,7 @@
 const loginForm = document.getElementById('loginForm');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
+const  loginBtn = document.getElementById('loginBtn')
 
 window.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('isLoggedIn') === 'true' && localStorage.getItem('loggedInUser')) {
@@ -12,8 +13,8 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault(); 
+loginBtn.addEventListener('click', function(){
+    // e.preventDefault(); 
 
     const email = emailInput.value.trim().toLowerCase();
     const password = passwordInput.value;
@@ -35,7 +36,7 @@ loginForm.addEventListener('submit', (e) => {
     localStorage.setItem('isLoggedIn', 'true');
 
     alert(`Welcome back, ${user.firstName}!`);
-    window.location.href = 'index.html'; 
+    window.location.href = 'login.html'; 
 });
 
 
