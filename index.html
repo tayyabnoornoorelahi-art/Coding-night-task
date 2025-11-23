@@ -1,18 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coding Night</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mini Social App - home</title>
+<link rel="stylesheet" href="index.css">
 </head>
 <body>
-    
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">Tayyab Developer • Mini Social App</div>
+    <div class="nav-right">
+      <input id="searchInput" class="search" placeholder="Search posts..." />
+      <div class="controls">
+        <button id="sortBtn" class="btn">Sort: Latest</button>
+        <button id="themeToggle" class="btn btn-sm btn-light">🌙</button>
+      </div>
+      <div style="width:10px"></div>
+      <div class="avatar" id="navAvatar"></div>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="left">
+      <div class="card">
+        <div class="create">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div class="avatar" id="composeAvatar"></div>
+            <div style="flex:1">
+              <div class="small-muted" id="composeName">Welcome, User</div>
+              <p class="small-muted" style="margin:6px 0 0">Write something to share with everyone.</p>
+            </div>
+          </div>
+          <textarea id="quickText" placeholder="What's on your mind?"></textarea>
+          <input id="quickImage" type="text" placeholder="Image URL (optional)" />
+          <div style="display:flex;gap:10px;align-items:center;justify-content:space-between">
+            <div class="small-muted">Add reactions: hover like to open popup</div>
+            <div>
+              <button id="previewBtn" class="btn" style="background:#06b6d4">Preview</button>
+              <button id="postQuick" class="btn">Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div style="margin-top:12px" class="card">
+        <div class="filters">
+          <div class="chip" data-sort="latest">Latest</div>
+          <div class="chip" data-sort="oldest">Oldest</div>
+          <div class="chip" data-sort="mostliked">Most Liked</div>
+        </div>
+        <div id="feed" class="feed"></div>
+      </div>
+    </div>
 
+    <div class="right">
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="avatar" id="sideAvatar"></div>
+          <div>
+            <div id="sideName" style="font-weight:700">User</div>
+            <div class="small-muted" id="sideEmail">email</div>
+          </div>
+        </div>
+        <p class="small-muted" id="sideDesc" style="margin-top:10px">Description...</p>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <a href="profile.html"><button class="btn">Edit Profile</button></a>
+          <button id="logout" class="btn" style="background:#ef4444">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Edit Modal -->
+<div id="editModal">
+  <div>
+    <h3>Edit Post</h3>
+    <textarea id="editText" style="width:100%;height:90px"></textarea>
+    <input id="editImage" type="text" placeholder="Image URL (optional)" style="width:100%;padding:8px;margin-top:8px"/>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+      <button id="cancelEdit" class="btn" style="background:#6b7280">Cancel</button>
+      <button id="saveEdit" class="btn">Save</button>
+    </div>
+  </div>
+</div>
 
-    <script src="app.js"></script>
+<script src="index.js"></script>
 </body>
 </html>

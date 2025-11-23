@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Social App - Profile</title>
+<link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+<div class="container">
+    <section class="profile-card">
+        <div class="top-banner"></div>
+        <div class="profile-content">
+            <img id="profileImage" src="./image/user.png" class="profile-pic">
+            <h2 id="welcomeName">Welcome, User</h2>
+            <h3 id="welcomeEmail">email@email.com</h3>
+            <p id="userDesc" class="description">This is your profile description...</p>
+
+            <div class="button-row">
+                <button id="editProfileBtn" class="btn primary">Edit Profile</button>
+                <button id="goHome" class="btn success">Go to Home</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDIT PROFILE MODAL -->
+    <div id="editPopup" class="popup">
+        <div class="popup-box">
+            <div class="popup-header">
+                <h2>Edit Profile</h2>
+                <span id="closePopup">&times;</span>
+            </div>
+
+            <label class="upload-area">
+                <input type="file" id="uploadPhoto" accept="image/*">
+                <div class="upload-inner">
+                    <img src="https://cdn-icons-png.flaticon.com/512/685/685686.png">
+                    <p>Click to upload profile picture</p>
+                </div>
+            </label>
+
+            <input type="text" id="editName" placeholder="Enter your name">
+            <input type="text" id="editEmail" placeholder="Enter your email">
+            <textarea id="editDesc" placeholder="Write your description..."></textarea>
+
+            <div class="button-row">
+                <button id="saveBtn" class="btn primary">Save</button>
+                <button id="cancelBtn" class="btn danger">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="profile.js"></script>
+
+</body>
+</html>

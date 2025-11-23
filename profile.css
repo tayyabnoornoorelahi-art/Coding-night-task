@@ -1,0 +1,192 @@
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f0f4f8;
+    margin: 0;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+}
+
+.profile-card {
+    background: #ffffff;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+.top-banner {
+    height: 140px;
+    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+    position: relative;
+    overflow: hidden;
+}
+.top-banner::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: rgba(255,255,255,0.15);
+    transform: rotate(25deg);
+    top: -50%;
+    left: -50%;
+}
+.profile-content {
+    text-align: center;
+    padding: 30px 20px 40px;
+    position: relative;
+}
+.profile-pic {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 5px solid white;
+    margin-top: -90px;
+    object-fit: cover;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+}
+.profile-pic:hover {
+     transform: scale(1.05); 
+    }
+#welcomeName {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 15px;
+    color: #333;
+}
+#welcomeEmail {
+    font-size: 14px;
+    color: #777;
+    margin-top: 5px;
+}
+.description {
+    font-size: 15px;
+    color: #555;
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+.btn {
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.primary { background: #3b82f6; color: white; }
+.success { background: #10b981; color: white; }
+.danger { background: #ef4444; color: white; }
+
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.popup.show {
+     opacity: 1; 
+     pointer-events: all; }
+.popup-box {
+    width: 95%;
+    max-width: 400px;
+    background: #fff;
+    border-radius: 25px;
+    padding: 25px 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    transform: translateY(-50px);
+    transition: all 0.3s ease;
+}
+.popup.show .popup-box { transform: translateY(0); }
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.popup-header h2 { 
+    font-size: 20px; 
+    color: #333; 
+    margin: 0; 
+}
+#closePopup {
+     font-size: 24px; 
+     cursor: pointer; 
+     color: #999; 
+     transition: color 0.3s ease;
+     }
+
+#closePopup:hover {
+     color: #3b82f6;
+    }
+
+.upload-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px dashed #3b82f6;
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.upload-area input { display: none; }
+.upload-inner img { margin-bottom: 8px; width: 35px; }
+/* Inputs */
+input, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+}
+textarea { height: 90px; resize: none; }
+input:focus, textarea:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 6px rgba(59,130,246,0.3);
+}
+.popup-box .button-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+/* Responsive */
+@media (max-width: 480px) {
+    .popup-box { padding: 20px 15px; }
+    .upload-area { padding: 12px; }
+}
